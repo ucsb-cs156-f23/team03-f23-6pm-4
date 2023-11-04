@@ -6,7 +6,7 @@ const articlesFixtures = {
         url: "nytimes.com",
         explanation: "example",
         email: "author@nytimes.com",
-        dateAdded: "",
+        dateAdded: "2023-05-31T00:00:00",
     },
     threeArticles: [
         {
