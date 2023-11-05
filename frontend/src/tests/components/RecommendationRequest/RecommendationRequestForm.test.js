@@ -61,6 +61,10 @@ describe("RecommendationRequestForm tests", () => {
         fireEvent.click(submitButton);
 
         await screen.findByText(/Requester Email must in the form of an email, e.g. sample@email.com/);
+        expect(screen.getByText(/Professor Email must in the form of an email, e.g. sample@email.com/)).toBeInTheDocument();
+        expect(screen.getByText(/Request Date is required./)).toBeInTheDocument();
+        expect(screen.getByText(/Needed Date is required./)).toBeInTheDocument();
+        expect(screen.getByText(/Done must be true or false/)).toBeInTheDocument();
     });
 
     test("Correct Error messsages on missing input", async () => {
@@ -80,6 +84,7 @@ describe("RecommendationRequestForm tests", () => {
         expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
         expect(screen.getByText(/Request Date is required./)).toBeInTheDocument();
         expect(screen.getByText(/Needed Date is required./)).toBeInTheDocument();
+        expect(screen.getByText(/Done is required./)).toBeInTheDocument();
 
     });
 
@@ -108,13 +113,14 @@ describe("RecommendationRequestForm tests", () => {
         fireEvent.change(explanationField, { target: { value: 'a reason' } });
         fireEvent.change(dateRequestedField, { target: { value: '2022-01-02T12:00' } });
         fireEvent.change(dateNeededField, { target: { value: '2022-01-02T12:00' } });
-        fireEvent.change(doneField, { target: { value: 'true' } });
+        fireEvent.change(doneField, { target: { value: true } });
         fireEvent.click(submitButton);
 
         await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
         expect(screen.queryByText(/Requester Email must in the form of an email, e.g. sample@email.com/)).not.toBeInTheDocument();
         expect(screen.queryByText(/Professor Email must in the form of an email, e.g. sample@email.com/)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Done must be true or false/)).not.toBeInTheDocument();
     });
 
 

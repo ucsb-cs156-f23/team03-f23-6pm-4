@@ -143,7 +143,7 @@ function RecommendationRequestForm({ initialContents, submitAction, buttonLabel 
                             {...register("done", { required: true,  pattern: bool_ragex})}
                         />
                         <Form.Control.Feedback type="invalid">
-                            {errors.done && 'Done is required.'}
+                            {errors.done && 'Done is required. '}
                             {errors.done?.type === 'pattern' && 'Done must be true or false'}
                         </Form.Control.Feedback>
                     </Form.Group>
