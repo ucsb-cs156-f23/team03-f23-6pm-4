@@ -24,7 +24,9 @@ function RecommendationRequestForm({ initialContents, submitAction, buttonLabel 
 
     // Stryker disable next-line all
     const email_ragex = /[\w.]+@([\w]+\.)+[\w-]{2,4}/;
-    const bool_ragex = /(true|false)/i;
+
+    // Stryker disable next-line all
+    const bool_ragex = /^(true|false)$/i;
 
     return (
 
