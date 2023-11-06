@@ -23,7 +23,7 @@ function MenuItemReviewForm({ initialContents, submitAction, buttonLabel = "Crea
     const isodate_regex = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
 
     // Stryker disable next-line Regex
-    const email_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/i;
+    const email_regex = /[\w.]+@([\w]+\.)+[\w-]{2,4}/;
 
     return (
 
@@ -56,7 +56,7 @@ function MenuItemReviewForm({ initialContents, submitAction, buttonLabel = "Crea
                             id="itemId"
                             type="number"
                             isInvalid={Boolean(errors.itemId)}
-                            {...register("itemID", { required: true, min: 1 })}
+                            {...register("itemId", { required: true, min: 1 })}
                         />
                         <Form.Control.Feedback type="invalid">
                             {errors.itemId && 'Item ID is required. '}
@@ -111,8 +111,7 @@ function MenuItemReviewForm({ initialContents, submitAction, buttonLabel = "Crea
                         />
                         <Form.Control.Feedback type="invalid">
                             {errors.stars && 'Stars is required. '}
-                            {errors.stars?.type === 'min' && 'Stars needs to be in between 0 and 5. '}
-                            {errors.stars?.type === 'max' && 'Stars needs to be in between 0 and 5. '}
+                            {(errors.stars?.type === 'min' || errors.stars?.type === 'max') && 'Stars needs to be in between 0 and 5. '}
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Col>

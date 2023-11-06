@@ -11,30 +11,30 @@ jest.mock('react-router-dom', () => ({
 }));
 
 
-describe("UCSBDateForm tests", () => {
+describe("MenuItemReviewForm tests", () => {
 
     test("renders correctly", async () => {
 
         render(
             <Router  >
-                <UCSBDateForm />
+                <MenuItemReviewForm />
             </Router>
         );
-        await screen.findByText(/Quarter YYYYQ/);
+        await screen.findByText(/Item ID/);
         await screen.findByText(/Create/);
     });
 
 
-    test("renders correctly when passing in a UCSBDate", async () => {
+    test("renders correctly when passing in a MenuItemReview", async () => {
 
         render(
             <Router  >
-                <UCSBDateForm initialContents={ucsbDatesFixtures.oneDate} />
+                <MenuItemReviewForm initialContents={menuItemReviewFixtures.oneReview} />
             </Router>
         );
-        await screen.findByTestId(/UCSBDateForm-id/);
+        await screen.findByTestId(/MenuItemReviewForm-id/);
         expect(screen.getByText(/Id/)).toBeInTheDocument();
-        expect(screen.getByTestId(/UCSBDateForm-id/)).toHaveValue("1");
+        expect(screen.getByTestId(/MenuItemReviewForm-id/)).toHaveValue("1");
     });
 
 
@@ -42,37 +42,62 @@ describe("UCSBDateForm tests", () => {
 
         render(
             <Router  >
-                <UCSBDateForm />
+                <MenuItemReviewForm />
             </Router>
         );
-        await screen.findByTestId("UCSBDateForm-quarterYYYYQ");
-        const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
-        const localDateTimeField = screen.getByTestId("UCSBDateForm-localDateTime");
-        const submitButton = screen.getByTestId("UCSBDateForm-submit");
+        await screen.findByTestId("MenuItemReviewForm-reviewerEmail");
+        const itemIdField = screen.getByTestId("MenuItemReviewForm-itemId");
+        const reviewerEmailField = screen.getByTestId("MenuItemReviewForm-reviewerEmail");
+        const dateReviewedField = screen.getByTestId("MenuItemReviewForm-dateReviewed");
+        const starsField = screen.getByTestId("MenuItemReviewForm-stars");
+        const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
 
-        fireEvent.change(quarterYYYYQField, { target: { value: 'bad-input' } });
-        fireEvent.change(localDateTimeField, { target: { value: 'bad-input' } });
+        fireEvent.change(itemIdField, { target: { value: -1 } });
+        fireEvent.change(starsField, { target: { value: -1 } });
+        fireEvent.change(reviewerEmailField, { target: { value: 'bad-input' } });
+        fireEvent.change(dateReviewedField, { target: { value: 'bad-input' } });
         fireEvent.click(submitButton);
 
-        await screen.findByText(/QuarterYYYYQ must be in the format YYYYQ/);
+        await screen.findByText(/Reviewer email is not an email/);
+        expect(screen.getByText(/Item ID is required to be positive./)).toBeInTheDocument();
+        expect(screen.getByText(/Stars needs to be in between 0 and 5./)).toBeInTheDocument();
+    });
+
+    test("Correct Error messsages on stars greater than five", async () => {
+
+        render(
+            <Router  >
+                <MenuItemReviewForm />
+            </Router>
+        );
+        await screen.findByTestId("MenuItemReviewForm-stars");
+
+        const starsField = screen.getByTestId("MenuItemReviewForm-stars");
+        const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
+
+        fireEvent.change(starsField, { target: { value: 6 } });
+        fireEvent.click(submitButton);
+
+        await screen.findByText(/Stars needs to be in between 0 and 5./);
     });
 
     test("Correct Error messsages on missing input", async () => {
 
         render(
             <Router  >
-                <UCSBDateForm />
+                <MenuItemReviewForm />
             </Router>
         );
-        await screen.findByTestId("UCSBDateForm-submit");
-        const submitButton = screen.getByTestId("UCSBDateForm-submit");
+        await screen.findByTestId("MenuItemReviewForm-submit");
+        const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
 
         fireEvent.click(submitButton);
 
-        await screen.findByText(/QuarterYYYYQ is required./);
-        expect(screen.getByText(/Name is required./)).toBeInTheDocument();
-        expect(screen.getByText(/LocalDateTime is required./)).toBeInTheDocument();
-
+        await screen.findByText(/Date Reviewed is required./);
+        expect(screen.getByText(/Item ID is required/)).toBeInTheDocument();
+        expect(screen.getByText(/Reviewer email is required./)).toBeInTheDocument();
+        expect(screen.getByText(/Stars is required./)).toBeInTheDocument();
+        expect(screen.getByText(/Comments is required./)).toBeInTheDocument();
     });
 
     test("No Error messsages on good input", async () => {
@@ -82,25 +107,29 @@ describe("UCSBDateForm tests", () => {
 
         render(
             <Router  >
-                <UCSBDateForm submitAction={mockSubmitAction} />
+                <MenuItemReviewForm submitAction={mockSubmitAction} />
             </Router>
         );
-        await screen.findByTestId("UCSBDateForm-quarterYYYYQ");
+        await screen.findByTestId("MenuItemReviewForm-itemId");
 
-        const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
-        const nameField = screen.getByTestId("UCSBDateForm-name");
-        const localDateTimeField = screen.getByTestId("UCSBDateForm-localDateTime");
-        const submitButton = screen.getByTestId("UCSBDateForm-submit");
+        const itemIdField = screen.getByTestId("MenuItemReviewForm-itemId");
+        const dateReviewedField = screen.getByTestId("MenuItemReviewForm-dateReviewed");
+        const reviewerEmailField = screen.getByTestId("MenuItemReviewForm-reviewerEmail");
+        const starsField = screen.getByTestId("MenuItemReviewForm-stars");
+        const commentsField = screen.getByTestId("MenuItemReviewForm-comments");
+        const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
 
-        fireEvent.change(quarterYYYYQField, { target: { value: '20221' } });
-        fireEvent.change(nameField, { target: { value: 'noon on January 2nd' } });
-        fireEvent.change(localDateTimeField, { target: { value: '2022-01-02T12:00' } });
+        fireEvent.change(itemIdField, { target: { value: 1 } });
+        fireEvent.change(dateReviewedField, { target: { value: '2022-01-02T12:00' } });
+        fireEvent.change(reviewerEmailField, { target: { value: 'test@ucsb.edu' } });
+        fireEvent.change(starsField, { target: { value: 5 } });
+        fireEvent.change(commentsField, { target: { value: 'its good' } });
         fireEvent.click(submitButton);
 
         await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
-        expect(screen.queryByText(/QuarterYYYYQ must be in the format YYYYQ/)).not.toBeInTheDocument();
-        expect(screen.queryByText(/localDateTime must be in ISO format/)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Reviewer email is not an email/)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Stars needs to be in between 0 and 5/)).not.toBeInTheDocument();
 
     });
 
@@ -109,11 +138,11 @@ describe("UCSBDateForm tests", () => {
 
         render(
             <Router  >
-                <UCSBDateForm />
+                <MenuItemReviewForm />
             </Router>
         );
-        await screen.findByTestId("UCSBDateForm-cancel");
-        const cancelButton = screen.getByTestId("UCSBDateForm-cancel");
+        await screen.findByTestId("MenuItemReviewForm-cancel");
+        const cancelButton = screen.getByTestId("MenuItemReviewForm-cancel");
 
         fireEvent.click(cancelButton);
 
