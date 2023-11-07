@@ -6,7 +6,7 @@ const helpRequestsFixtures = {
         "tableOrBreakoutRoom": "10",
         "requestTime": "2023-10-26T14:30:00",
         "explanation": "Need help with Swagger-ui",
-        "solved": "false"
+        "solved": false
     },
     threeRequests: [
         {
@@ -16,7 +16,7 @@ const helpRequestsFixtures = {
             "tableOrBreakoutRoom": "10",
             "requestTime": "2023-10-26T14:30:00",
             "explanation": "Need help with Swagger-ui",
-            "solved": "false"
+            "solved": false
         },
         {
             "id": 2,
@@ -25,7 +25,7 @@ const helpRequestsFixtures = {
             "tableOrBreakoutRoom": "9",
             "requestTime": "2023-10-17T14:15:00",
             "explanation": "Dokku problems",
-            "solved": "false"
+            "solved": false
         },
         {
             "id": 3,
@@ -34,7 +34,7 @@ const helpRequestsFixtures = {
             "tableOrBreakoutRoom": "5",
             "requestTime": "2023-11-02T15:00:00",
             "explanation": "Merge conflict",
-            "solved": "false"
+            "solved": false
         }
     ]
 };
