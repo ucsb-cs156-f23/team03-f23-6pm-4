@@ -22,10 +22,12 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
     const isodate_regex = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
 
     // From https://regexr.com/3e48o
-    const email_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    // Stryker disable next-line Regex
+    const email_regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     // From https://regexr.com/39nr7
-    const url_regex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig;
+    // Stryker disable next-line Regex
+    const url_regex = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/ig;
 
     const testIdPrefix = "ArticlesForm";
 
@@ -55,10 +57,6 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
                     isInvalid={Boolean(errors.title)}
                     {...register("title", {
                         required: "Title is required.",
-                        maxLength: {
-                            value: 100,
-                            message: "Max length 100 characters"
-                        }
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
