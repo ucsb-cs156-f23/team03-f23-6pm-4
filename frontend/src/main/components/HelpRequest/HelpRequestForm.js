@@ -24,8 +24,7 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = "Create"
 
     // Stryker disable next-line all
     const email_regex = /[\w.]+@([\w]+\.)+[\w-]{2,4}/i;
-    const teamId_regex = /[sfmw]\d{2}-(1[0-2]|[1-9])(am|pm)-[1-4]/i;
-    const tableOrBreakoutRoom_regex = /([1-9][0-9]|99)/i;
+    const teamId_regex = /[smfw]\d\d-([123456789]|10|11|12)(am|pm)-[1234]$/;
     const solved_regex = /(true|false)/i;
 
     return (
@@ -72,11 +71,10 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = "Create"
                             id="tableOrBreakoutRoom"
                             type="text"
                             isInvalid={Boolean(errors.tableOrBreakoutRoom)}
-                            {...register("tableOrBreakoutRoom", { required: true, pattern: tableOrBreakoutRoom_regex })}
+                            {...register("tableOrBreakoutRoom", { required: true })}
                         />
                         <Form.Control.Feedback type="invalid">
                             {errors.tableOrBreakoutRoom && 'Table or BreakoutRoom is required.'}
-                            {errors.tableOrBreakoutRoom?.type === 'pattern' && 'Table or BreakoutRoom must be 1-99'}
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Col>
@@ -147,7 +145,7 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = "Create"
                         />
                         <Form.Control.Feedback type="invalid">
                             {errors.solved && 'Solved is required.'}
-                            {'Solved must be true or false'}
+                            {errors.solved?.type === 'pattern' && 'Solved must be true or false'}
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Col> 

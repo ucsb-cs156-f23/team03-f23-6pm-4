@@ -47,21 +47,18 @@ describe("HelpRequestForm tests", () => {
         );
         await screen.findByTestId("HelpRequestForm-teamId");
         const teanIdField = screen.getByTestId("HelpRequestForm-teamId");
-        const tableOrBreakoutRoomField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
         const requesterEmailField = screen.getByTestId("HelpRequestForm-requesterEmail");
         const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
         const solvedField = screen.getByTestId("HelpRequestForm-solved");
         const submitButton = screen.getByTestId("HelpRequestForm-submit");
 
-        fireEvent.change(teanIdField, { target: { value: 'bad-input' } });
-        fireEvent.change(tableOrBreakoutRoomField, { target: { value: 'bad-input' } });
+        fireEvent.change(teanIdField, { target: { value: 'f23-6pm-44' } });
         fireEvent.change(requesterEmailField, { target: { value: 'bad-input' } });
         fireEvent.change(requestTimeField, { target: { value: 'bad-input' } });
         fireEvent.change(solvedField, {target: { value: 'bad-input' } });
         fireEvent.click(submitButton);
 
         await screen.findByText(/TeamId must be in the correct format, e.g. f23-6pm-4/);
-        await screen.findByText(/Table or BreakoutRoom must be 1-99/);
         await screen.findByText(/RequesterEmail must be in the email format, e.g. cgacho@ucsb.edu/);
         await screen.findByText(/Solved must be true or false/);
     });
@@ -99,28 +96,27 @@ describe("HelpRequestForm tests", () => {
         await screen.findByTestId("HelpRequestForm-teamId");
 
         const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
-        const tableOrBreakoutRoomField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
         const requesterEmailField = screen.getByTestId("HelpRequestForm-requesterEmail");
+        const tableOrBreakoutRoomField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
         const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
         const explanationField = screen.getByTestId("HelpRequestForm-explanation");
         const solvedField = screen.getByTestId("HelpRequestForm-solved");
         const submitButton = screen.getByTestId("HelpRequestForm-submit");
 
         fireEvent.change(teamIdField, { target: { value: 'f23-6pm-4' } });
-        fireEvent.change(tableOrBreakoutRoomField, { target: { value: '10' } });
         fireEvent.change(requesterEmailField, { target: { value: 'cgaucho@ucsb.edu' } });
+        fireEvent.change(tableOrBreakoutRoomField, { target: { value: '10' } });
         fireEvent.change(requestTimeField, { target: { value: '2022-01-02T12:00' } });
         fireEvent.change(explanationField, { target: { value: 'Merge Confilct' } });
-        fireEvent.change(solvedField, { target: { value: 'false' } });
+        fireEvent.change(solvedField, { target: { value: true } });
         fireEvent.click(submitButton);
 
         await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
         expect(screen.queryByText(/TeamId must be in the correct format, e.g. f23-6pm-4/)).not.toBeInTheDocument();
         expect(screen.queryByText(/requestTime must be in ISO format/)).not.toBeInTheDocument();
-        expect(screen.queryByText(/Table or BreakoutRoom must be 1-99/)).not.toBeInTheDocument();
         expect(screen.queryByText(/RequesterEmail must be in the email format, e.g. cgacho@ucsb.edu/)).not.toBeInTheDocument();
-        expect(screen.queryByText(/Solved is required./)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Solved must be true or false/)).not.toBeInTheDocument();
 
     });
 
