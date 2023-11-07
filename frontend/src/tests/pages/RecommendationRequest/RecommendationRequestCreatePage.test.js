@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
-=======
-import { render, screen } from "@testing-library/react";
->>>>>>> 2a1fbdd (sg - #30 - added placeholder pages for recommendation requests + tests + add pages to App and AppNavBar)
 import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -12,7 +8,6 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
-<<<<<<< HEAD
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
     const originalModule = jest.requireActual('react-toastify');
@@ -38,18 +33,10 @@ describe("RecommendationRequestCreatePage tests", () => {
     const axiosMock =new AxiosMockAdapter(axios);
 
     beforeEach(() => {
-=======
-describe("RecommendationRequestCreatePage tests", () => {
-
-    const axiosMock = new AxiosMockAdapter(axios);
-
-    const setupUserOnly = () => {
->>>>>>> 2a1fbdd (sg - #30 - added placeholder pages for recommendation requests + tests + add pages to App and AppNavBar)
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-<<<<<<< HEAD
     });
 
     test("renders without crashing", () => {
@@ -78,17 +65,6 @@ describe("RecommendationRequestCreatePage tests", () => {
 
         axiosMock.onPost("/api/recommendationrequests/post").reply( 202, recommendationRequest );
 
-=======
-    };
-
-    const queryClient = new QueryClient();
-    test("Renders expected content", () => {
-        // arrange
-
-        setupUserOnly();
-       
-        // act
->>>>>>> 2a1fbdd (sg - #30 - added placeholder pages for recommendation requests + tests + add pages to App and AppNavBar)
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -97,7 +73,6 @@ describe("RecommendationRequestCreatePage tests", () => {
             </QueryClientProvider>
         );
 
-<<<<<<< HEAD
         await waitFor(() => {
             expect(screen.getByTestId("RecommendationRequestForm-requesterEmail")).toBeInTheDocument();
         });
@@ -138,12 +113,6 @@ describe("RecommendationRequestCreatePage tests", () => {
     });
 
 
-=======
-        // assert
-        expect(screen.getByText("Create page not yet implemented")).toBeInTheDocument();
-    });
-
->>>>>>> 2a1fbdd (sg - #30 - added placeholder pages for recommendation requests + tests + add pages to App and AppNavBar)
 });
 
 
