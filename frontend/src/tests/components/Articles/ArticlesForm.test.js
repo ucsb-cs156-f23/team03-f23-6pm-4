@@ -42,22 +42,84 @@ describe("ArticlesForm tests", () => {
     });
 
 
-    test("Correct Error messsages on bad input", async () => {
+    describe("Correct error messages on bad inputs for email", () => {
+        test("Generic bad-input", async () => {
 
-        render(
-            <Router  >
-                <ArticlesForm />
-            </Router>
-        );
-        await screen.findByTestId("ArticlesForm-dateAdded");
-        const emailField = screen.getByTestId("ArticlesForm-email");
-        const submitButton = screen.getByTestId("ArticlesForm-submit");
+            render(
+                <Router  >
+                    <ArticlesForm />
+                </Router>
+            );
+            await screen.findByTestId("ArticlesForm-dateAdded");
+            const emailField = screen.getByTestId("ArticlesForm-email");
+            const submitButton = screen.getByTestId("ArticlesForm-submit");
 
-        fireEvent.change(emailField, { target: { value: 'bad-input' } });
-        fireEvent.click(submitButton);
+            fireEvent.change(emailField, { target: { value: 'bad-input' } });
+            fireEvent.click(submitButton);
 
-        await screen.findByText(/Email must be a valid email address/);
+            await screen.findByText(/Email must be a valid email address/);
+        });
+
+        test("Bad domain name", async () => {
+
+            render(
+                <Router  >
+                    <ArticlesForm />
+                </Router>
+            );
+            await screen.findByTestId("ArticlesForm-dateAdded");
+            const emailField = screen.getByTestId("ArticlesForm-email");
+            const submitButton = screen.getByTestId("ArticlesForm-submit");
+
+            fireEvent.change(emailField, { target: { value: 'hi@email.notadomain' } });
+            fireEvent.click(submitButton);
+
+            await screen.findByText(/Email must be a valid email address/);
+        });
+
+
     });
+
+    describe("Correct Error messages on bad input for URL", () => {
+        test("Generic bad input", async () => {
+
+            render(
+                <Router  >
+                    <ArticlesForm />
+                </Router>
+            );
+            await screen.findByTestId("ArticlesForm-dateAdded");
+            const urlField = screen.getByTestId("ArticlesForm-url");
+            const submitButton = screen.getByTestId("ArticlesForm-submit");
+
+            fireEvent.change(urlField, { target: { value: 'bad-input' } });
+            fireEvent.click(submitButton);
+
+            await screen.findByText(/URL must be a valid web address/);
+        });
+
+        test("Bad domain name", async () => {
+
+            render(
+                <Router  >
+                    <ArticlesForm />
+                </Router>
+            );
+            await screen.findByTestId("ArticlesForm-dateAdded");
+            const urlField = screen.getByTestId("ArticlesForm-url");
+            const submitButton = screen.getByTestId("ArticlesForm-submit");
+
+            fireEvent.change(urlField, { target: { value: 'email.notadomain' } });
+            fireEvent.click(submitButton);
+
+            await screen.findByText(/URL must be a valid web address/);
+        });
+    });
+
+
+
+
+
 
     test("Correct Error messages on missing input", async () => {
 
