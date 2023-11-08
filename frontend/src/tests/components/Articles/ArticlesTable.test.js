@@ -118,5 +118,27 @@ describe("ArticlesTables tests", () => {
 
     });
 
+    test("Delete button calls delete callback", async () => {
+
+        const currentUser = currentUserFixtures.adminUser;
+        const testId = "ArticlesTable";
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ArticlesTable articles={articlesFixtures.threeArticles} currentUser={currentUser} />
+                </MemoryRouter>
+            </QueryClientProvider>
+
+        );
+
+        await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+
+        const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+        expect(deleteButton).toBeInTheDocument();
+
+        fireEvent.click(deleteButton);
+
+    });
+
 });
 
