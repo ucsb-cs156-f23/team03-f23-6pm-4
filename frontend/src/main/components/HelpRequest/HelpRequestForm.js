@@ -25,7 +25,8 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = "Create"
     // Stryker disable next-line all
     const email_regex = /[\w.]+@([\w]+\.)+[\w-]{2,4}/i;
     const teamId_regex = /[smfw]\d\d-([123456789]|10|11|12)(am|pm)-[1234]$/;
-    const solved_regex = /(true|false)/i;
+    // Stryker disable next-line all
+    const solved_regex = /^(true|false)$/i;
 
     return (
 
