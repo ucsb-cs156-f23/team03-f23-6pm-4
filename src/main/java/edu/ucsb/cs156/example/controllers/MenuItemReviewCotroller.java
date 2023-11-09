@@ -27,8 +27,8 @@ import javax.validation.Valid;
 
 import java.time.LocalDateTime;
 
-@Tag(name = "MenuItemReviews")
-@RequestMapping("/api/menuitemreviews")
+@Tag(name = "MenuItemReview")
+@RequestMapping("/api/menuitemreview")
 @RestController
 @Slf4j
 public class MenuItemReviewCotroller extends ApiController{
@@ -39,7 +39,7 @@ public class MenuItemReviewCotroller extends ApiController{
     @Operation(summary= "List all menu item reviews")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<MenuItemReview> allMenuItemReviews() {
+    public Iterable<MenuItemReview> allMenuItemReview() {
         Iterable<MenuItemReview> reviews = menuItemReviewRepository.findAll();
         return reviews;
     }
@@ -48,7 +48,7 @@ public class MenuItemReviewCotroller extends ApiController{
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public MenuItemReview postMenuItemReview(
-            @Parameter(name="itemID") @RequestParam long itemID,
+            @Parameter(name="itemId") @RequestParam long itemId,
             @Parameter(name="reviewerEmail") @RequestParam String reviewerEmail,
             @Parameter(name="stars") @RequestParam int stars,
             @Parameter(name="comments") @RequestParam String comments,
@@ -61,7 +61,7 @@ public class MenuItemReviewCotroller extends ApiController{
         log.info("dateReviewed={}", dateReviewed);
 
         MenuItemReview menuItemReview = new MenuItemReview();
-        menuItemReview.setItemID(itemID);
+        menuItemReview.setItemId(itemId);
         menuItemReview.setReviewerEmail(reviewerEmail);
         menuItemReview.setStars(stars);
         menuItemReview.setComments(comments);
@@ -105,7 +105,7 @@ public class MenuItemReviewCotroller extends ApiController{
         MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
 
-        menuItemReview.setItemID(incoming.getItemID());
+        menuItemReview.setItemId(incoming.getItemId());
         menuItemReview.setReviewerEmail(incoming.getReviewerEmail());
         menuItemReview.setStars(incoming.getStars());
         menuItemReview.setComments(incoming.getComments());
