@@ -3,13 +3,12 @@ import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenu
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import mockConsole from "jest-mock-console";
-import { ucsbDiningCommonsMenuItemFixtures } from "fixtures/ucsbDatesFixtures";
+import { ucsbDiningCommonsMenuItemFixtures } from "fixtures/ucsbDiningCommonsMenuItemFixtures";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -46,7 +45,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
 
     test("Renders with Create Button for admin user", async () => {
         setupAdminUser();
-        axiosMock.onGet("/api/ucsbdiningcommonsmenuitem/all").reply(200, []);
+        axiosMock.onGet("/api/ucsbdiningcommonsmenuitems/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -71,7 +70,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBDatesIndexPage />
+                    <UCSBDiningCommonsMenuItemIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -93,8 +92,8 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         expect(station).toBeInTheDocument();
 
         // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
-        expect(screen.queryByTestId("RestaurantTable-cell-row-0-col-Delete-button")).not.toBeInTheDocument();
-        expect(screen.queryByTestId("RestaurantTable-cell-row-0-col-Edit-button")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-Delete-button")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-Edit-button")).not.toBeInTheDocument();
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
@@ -130,14 +129,14 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBDatesIndexPage />
+                    <UCSBDiningCommonsMenuItemIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
 
         await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
 
-        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
 
 
         const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
@@ -150,7 +149,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         await waitFor(() => { expect(axiosMock.history.delete.length).toBe(1); });
         expect(axiosMock.history.delete[0].url).toBe("/api/ucsbdiningcommonsmenuitems");
         expect(axiosMock.history.delete[0].url).toBe("/api/ucsbdiningcommonsmenuitems");
-        expect(axiosMock.history.delete[0].params).toEqual({ id: 2 });
+        expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
     });
 
 });
