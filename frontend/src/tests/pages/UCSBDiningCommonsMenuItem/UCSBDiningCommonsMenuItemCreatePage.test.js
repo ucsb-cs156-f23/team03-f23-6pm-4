@@ -85,6 +85,9 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
         const stationInput = screen.getByLabelText("Station");
         expect(stationInput).toBeInTheDocument();
 
+        const createButton = screen.getByText("Create");
+        expect(createButton).toBeInTheDocument();
+
         fireEvent.change(diningCommonsCodeInput, { target: { value: "424" } })
         fireEvent.change(nameInput, { target: { value: "Apple Pie" } })
         fireEvent.change(stationInput, { target: { value: "Dessert" } })
