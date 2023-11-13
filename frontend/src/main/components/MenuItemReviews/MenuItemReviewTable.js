@@ -2,16 +2,16 @@ import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/UCSBDateUtils"
+import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/menuItemReviewUtils"
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function UCSBDatesTable({ dates, currentUser }) {
+export default function MenuItemReviewTable({ reviews, currentUser }) {
 
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/ucsbdates/edit/${cell.row.values.id}`)
+        navigate(`/menuitemreview/edit/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
@@ -19,7 +19,7 @@ export default function UCSBDatesTable({ dates, currentUser }) {
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/ucsbdates/all"]
+        ["/api/menuitemreview/all"]
     );
     // Stryker restore all 
 
@@ -33,27 +33,35 @@ export default function UCSBDatesTable({ dates, currentUser }) {
             accessor: 'id', // accessor is the "key" in the data
         },
         {
-            Header: 'QuarterYYYYQ',
-            accessor: 'quarterYYYYQ',
+            Header: 'ItemID',
+            accessor: 'itemId',
         },
         {
-            Header: 'Name',
-            accessor: 'name',
+            Header: 'ReviewerEmail',
+            accessor: 'reviewerEmail',
         },
         {
-            Header: 'Date',
-            accessor: 'localDateTime',
+            Header: 'Stars',
+            accessor: 'stars',
+        },
+        {
+            Header: 'DateReviewed',
+            accessor: 'dateReviewed',
+        },
+        {
+            Header: 'Comments',
+            accessor: 'comments',
         }
     ];
 
     if (hasRole(currentUser, "ROLE_ADMIN")) {
-        columns.push(ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"));
-        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable"));
-    }
+        columns.push(ButtonColumn("Edit", "primary", editCallback, "MenuItemReviewTable"));
+        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "MenuItemReviewTable"));
+    } 
 
     return <OurTable
-        data={dates}
+        data={reviews}
         columns={columns}
-        testid={"UCSBDatesTable"}
+        testid={"MenuItemReviewTable"}
     />;
 };
