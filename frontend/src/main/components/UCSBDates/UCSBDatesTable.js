@@ -49,7 +49,7 @@ export default function UCSBDatesTable({ dates, currentUser }) {
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"));
         columns.push(ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable"));
-    } 
+    }
 
     return <OurTable
         data={dates}

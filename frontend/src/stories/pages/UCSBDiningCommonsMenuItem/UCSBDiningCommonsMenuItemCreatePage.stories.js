@@ -6,7 +6,7 @@ import { rest } from "msw";
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage"
 
 export default {
-    title: 'pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemCreatePage',
+    title: 'pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage',
     component: UCSBDiningCommonsMenuItemCreatePage
 };
 
