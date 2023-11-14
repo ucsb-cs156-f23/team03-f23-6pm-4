@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f23/team03-f23-6pm-4
 owner: ucsb-cs156-f23
 repo_name: team03-f23-6pm-4
-pull_requests: [{"author":{"id":"MDQ6VXNlcjkwNjczMzc2","is_bot":false,"login":"dayvidwang","name":""},"headRefName":"dayvidwang-Articles-index","number":97,"title":"ArticlesIndexPage plus tests and stories","url":"https://github.com/ucsb-cs156-f23/team03-f23-6pm-4/pull/97"},{"author":{"id":"MDQ6VXNlcjkwNjczMzc2","is_bot":false,"login":"dayvidwang","name":""},"headRefName":"dayvidwang-Articles-edit","number":96,"title":"ArticlesEditPage with stories and tests","url":"https://github.com/ucsb-cs156-f23/team03-f23-6pm-4/pull/96"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjkwNjczMzc2","is_bot":false,"login":"dayvidwang","name":""},"headRefName":"dayvidwang-Articles-edit","number":96,"title":"ArticlesEditPage with stories and tests","url":"https://github.com/ucsb-cs156-f23/team03-f23-6pm-4/pull/96"}]
