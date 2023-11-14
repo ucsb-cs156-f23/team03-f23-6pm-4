@@ -7,7 +7,6 @@ import { useCurrentUser , hasRole} from 'main/utils/currentUser'
 import { Button } from 'react-bootstrap';
 
 export default function UCSBDiningCommonsMenuItemIndexPage() {
-
     const currentUser = useCurrentUser();
 
     const { data: menuItems, error: _error, status: _status } =
