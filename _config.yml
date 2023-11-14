@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f23/team03-f23-6pm-4
 owner: ucsb-cs156-f23
 repo_name: team03-f23-6pm-4
-pull_requests: []
+pull_requests: [{"author":{"id":"MDQ6VXNlcjgwMDY1NjAx","is_bot":false,"login":"sumitgupta314","name":"Sumit Gupta"},"headRefName":"sg-fix-table-bool","number":115,"title":"sg - #28 - fixed boolean (done) to be displayed","url":"https://github.com/ucsb-cs156-f23/team03-f23-6pm-4/pull/115"}]
