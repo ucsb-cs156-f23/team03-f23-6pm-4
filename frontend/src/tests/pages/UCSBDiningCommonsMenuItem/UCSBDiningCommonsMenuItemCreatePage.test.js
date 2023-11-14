@@ -5,7 +5,6 @@ import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMen
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
